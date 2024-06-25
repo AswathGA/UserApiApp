@@ -6,6 +6,7 @@ using UserApiApp.Services;
 
 namespace UserApiApp.Pages
 {
+
     public class UniversityModel : PageModel
     {
         private readonly UserService _userService;
