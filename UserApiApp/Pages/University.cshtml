@@ -1,0 +1,66 @@
+﻿@page
+@model UserApiApp.Pages.UniversityModel
+@{
+    ViewData["Title"] = "Lectures";
+}
+
+<style>
+    /* CSS for card layout */
+    .user-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Adjust the gap between cards */
+        justify-content: space-between; /* Distribute space between cards */
+    }
+
+    .user-card {
+        flex: 1 1 calc(50% - 20px); /* Adjust card width */
+        max-width: calc(50% - 20px); /* Ensure max width for each card */
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        overflow: hidden; /* Ensure contents don't overflow */
+        display: flex; /* Display children (image and content) in a row */
+        flex-direction: column; /* Align content vertically */
+    }
+
+        .user-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0; /* Rounded corners for the top */
+        }
+
+    .user-card-content {
+        padding: 16px;
+    }
+
+    .user-card-links {
+        padding: 16px;
+        border-top: 1px solid #ccc;
+    }
+
+        .user-card-links p {
+            margin-bottom: 8px;
+        }
+
+        .user-card-links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+</style>
+    <h1>@ViewData["Title"]</h1>
+
+<div class="user-cards-container">
+    @if (Model.Users == null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        @foreach (var user in Model.Users)
+        {
+            @await Html.PartialAsync("_UserCard", user)
+        }
+    }
+</div>

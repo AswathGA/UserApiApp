@@ -1,0 +1,33 @@
+﻿@model UserApiApp.Models.User
+
+<div class="user-card">
+    <img src="@GetYouTubeThumbnail(Model.YoutubeVideoLink)" alt="User Video Thumbnail">
+
+    <div class="user-card-content">
+        <h3>@Model.UserName.FirstName @Model.UserName.LastName</h3>
+        <p><strong>Matriculation ID:</strong> @Model.MatriculationId</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Date and Timings:</strong> @Model.DateAndTimings.ToString("dd-MM-yyyy HH:mm:ss")</p>
+    </div>
+
+    <div class="user-card-links">
+        <p><strong>YouTube Video Link:</strong> <a href="@Model.YoutubeVideoLink" target="_blank">@Model.YoutubeVideoLink</a></p>
+        <p><strong>Place:</strong> @Model.Place</p>
+        <p><strong>View on Map:</strong> <a href="https://maps.google.com/maps?q=@Model.Map.Lat,@Model.Map.Long" target="_blank">Open in Google Maps</a></p>
+    </div>
+</div>
+
+@functions {
+    string GetYouTubeThumbnail(string videoLink)
+    {
+        var videoId = GetYouTubeVideoId(videoLink);
+        return $"https://img.youtube.com/vi/{videoId}/mqdefault.jpg";
+    }
+
+    string GetYouTubeVideoId(string videoLink)
+    {
+        var regExp = @"(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})";
+        var match = System.Text.RegularExpressions.Regex.Match(videoLink, regExp);
+        return match.Success ? match.Groups[1].Value : "";
+    }
+}
