@@ -1,0 +1,78 @@
+﻿@page
+@model UserApiApp.Pages.SignUpModel
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #E6E6FA; /* Light purple background */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .signup-container {
+        background-color: #fff;
+        padding: 70px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+        .signup-container h2 {
+            margin-bottom: 20px;
+            color: #800080; /* Dark purple */
+        }
+
+        .signup-container label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .signup-container input[type="text"],
+        .signup-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .signup-container button {
+            width: 106%;
+            padding: 10px;
+            background-color: #800080; /* Dark purple */
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .signup-container button:hover {
+                background-color: #6A0DAD; /* Darker shade on hover */
+            }
+</style>
+
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form method="post">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+
+        <button type="submit">Sign Up</button>
+    </form>
+    <p>
+        Already have an account? <a href="@Url.Page("/Login")">Login here</a>.
+    </p>
+</div>

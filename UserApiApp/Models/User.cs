@@ -5,6 +5,7 @@ namespace UserApiApp.Models
 {
     public class User
     {
+
         public UserName UserName { get; set; }
         public string MatriculationId { get; set; }
         public string Email { get; set; }

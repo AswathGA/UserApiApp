@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,12 +12,13 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/University">University of Europe</a>
+                <button class="btn btn-primary login-button" onclick="location.href='@Url.Page("/Login")'">Login</button>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            @RenderBody()a
         </main>
     </div>
 
@@ -26,3 +27,23 @@
     <script src="~/js/site.js"></script>
 </body>
 </html>
+*@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Head content -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
+</head>
+<body>
+    <!-- Navbar, header, etc. -->
+    <!-- Render page-specific content here -->
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <!-- Footer, scripts, etc. -->
+</body>
+</html>
+
+

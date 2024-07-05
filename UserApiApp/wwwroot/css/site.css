@@ -16,3 +16,17 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.login-button {
+    background-color: #4B0082; /* Slightly different shade of purple for button */
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: auto;
+}
+
+    .login-button:hover {
+        background-color: #6A0DAD; /* Darker shade on hover */
+    }

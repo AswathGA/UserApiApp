@@ -1,5 +1,94 @@
 ﻿@model UserApiApp.Models.User
 
+<style>
+    /* Existing styles for user card */
+
+    .user-card {
+        position: relative; /* Ensure relative positioning for absolute elements inside */
+        flex: 1 1 calc(40% - 20px); /* Adjusted card width */
+        max-width: calc(40% - 20px); /* Ensure max width for each card */
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 20px; /* Optional: Add margin bottom for spacing between cards */
+    }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .user-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .user-card:hover img {
+            opacity: 0.9;
+        }
+
+    .user-card-content {
+        padding: 16px;
+        text-align: left;
+    }
+
+        .user-card-content h3 {
+            margin: 0 0 10px;
+            color: #2c3e50;
+            font-size: 18px; /* Adjust font size for the user name */
+        }
+
+        .user-card-content p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px; /* Adjust font size for other details */
+        }
+
+    .user-card-links {
+        padding: 16px;
+        border-top: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+
+        .user-card-links p {
+            margin: 8px 0;
+            color: #555;
+            font-size: 14px; /* Adjust font size for links */
+        }
+
+        .user-card-links a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .user-card-links a:hover {
+                color: #0056b3;
+            }
+
+    /* Heart icon */
+    .heart-icon {
+        position: absolute;
+        bottom: 20px; /* Adjust bottom distance */
+        right: 20px; /* Adjust right distance */
+        cursor: pointer;
+        color: #ccc; /* Gray color for unliked heart */
+        transition: color 0.3s ease;
+        font-size: 24px; /* Adjust size of heart icon */
+    }
+
+        .heart-icon.active {
+            color: red; /* Red color for liked heart */
+        }
+</style>
+
 <div class="user-card">
     <img src="@GetYouTubeThumbnail(Model.YoutubeVideoLink)" alt="User Video Thumbnail">
 
@@ -11,23 +100,32 @@
     </div>
 
     <div class="user-card-links">
-        <p><strong>YouTube Video Link:</strong> <a href="@Model.YoutubeVideoLink" target="_blank">Watch Video</a></p>
+        <p><strong>YouTube Video Link:</strong> <a href="@Model.YoutubeVideoLink" target="_blank">@Model.YoutubeVideoLink</a></p>
         <p><strong>Place:</strong> @Model.Place</p>
         <p><strong>View on Map:</strong> <a href="https://maps.google.com/maps?q=@Model.Map.Lat,@Model.Map.Long" target="_blank">Open in Google Maps</a></p>
     </div>
+
+    <!-- Heart icon -->
+    <i class="heart-icon far fa-heart" onclick="toggleHeart(this)"></i>
 </div>
+
+<script>
+    function toggleHeart(icon) {
+        icon.classList.toggle('active');
+    }
+</script>
 
 @functions {
     string GetYouTubeThumbnail(string videoLink)
     {
         var videoId = GetYouTubeVideoId(videoLink);
-        return !string.IsNullOrEmpty(videoId) ? $"https://img.youtube.com/vi/{videoId}/mqdefault.jpg" : "default-thumbnail.jpg";
+        return $"https://img.youtube.com/vi/{videoId}/mqdefault.jpg";
     }
 
     string GetYouTubeVideoId(string videoLink)
     {
         var regExp = @"(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})";
         var match = System.Text.RegularExpressions.Regex.Match(videoLink, regExp);
-        return match.Success ? match.Groups[1].Value : null;
+        return match.Success ? match.Groups[1].Value : "";
     }
 }
